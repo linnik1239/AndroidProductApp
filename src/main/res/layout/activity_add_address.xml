@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#ccc"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="House num"
+        android:id = "@+id/AddAddressActivity_house_num"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Streat name"
+        android:id = "@+id/AddAddressActivity_streat_name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        android:id = "@+id/AddAddressActivity_city"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address Type"
+        android:id = "@+id/AddAddressActivity_type"/>
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_office"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Office"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Add address"
+        android:id = "@+id/AddAddressActivity_add_address"
+        />
+
+
+
+
+
+
+</LinearLayout>

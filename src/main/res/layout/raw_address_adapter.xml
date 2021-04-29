@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/AddressesAdaptertext_view_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="12dp"
+        android:id="@+id/AddressesAdaptertext_view_streat"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="12dp"
+        android:id="@+id/AddressesAdaptertext_view_house_num"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="12dp"
+        android:id="@+id/AddressesAdaptertext_view_type"/>
+
+
+</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textColor="@color/purple_200"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/AddressesAdaptertext_view_edit_address"
+        android:id="@+id/AddressesAdaptertext_view_delete_address"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textColor="@color/purple_200"
+        android:layout_alignParentRight="true"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="13dp"
+        android:id="@+id/AddressesAdaptertext_view_edit_address"
+        />
+
+
+    <RadioButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/Radio" />
+
+
+</RelativeLayout>

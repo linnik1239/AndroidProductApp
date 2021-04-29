@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image_view_product_my_list"
+        android:layout_width="120dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/text_view_name_my_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_view_product_my_list"
+        android:text="Product Name"
+        android:textColor="#000"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mrp = 0$"
+
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/image_view_product_my_list"
+        android:layout_below="@+id/text_view_name_my_list"
+        android:id="@+id/text_view___detail_mrp_price"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0$"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/image_view_product_my_list"
+        android:layout_below="@+id/text_view___detail_mrp_price"
+        android:id="@+id/text_view_price_my_list"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: 0$"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/image_view_product_my_list"
+        android:layout_below="@+id/text_view_price_my_list"
+        android:id="@+id/text_view__total_price_my_list"/>
+
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:src = "@drawable/ic_baseline_cancel_24"
+        android:padding="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+
+
+        android:id="@+id/button_detail_list_Delete_item"/>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="+"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+
+
+        android:id="@+id/button_plus_details_my_list"/>
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/button_plus_details_my_list"
+        android:id="@+id/text_num_detail_info_my_list"/>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+
+        android:text="-"
+        android:layout_alignParentBottom="true"
+
+        android:layout_toLeftOf="@+id/text_num_detail_info_my_list"
+        android:id="@+id/button_minus_details_my_list"/>
+
+
+</RelativeLayout>
