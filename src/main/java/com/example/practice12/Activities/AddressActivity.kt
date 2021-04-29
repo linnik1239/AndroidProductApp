@@ -1,5 +1,6 @@
 package com.example.practice12.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -68,12 +69,26 @@ class AddressActivity : AppCompatActivity() {
 
             var jsonObjectOderSummary = JSONObject()
 
-//            jsonObjectOderSummary.put("totalAmount", sumOrder?.totalAmount)
-//            jsonObjectOderSummary.put("deliveryCharges", sumOrder?.deliveryCharges)
-//
-//            jsonObjectOderSummary.put("orderAmount", sumOrder?.orderAmount)
-//            jsonObjectOderSummary.put("ourPrice", sumOrder?.ourPrice)
-//            jsonObjectOderSummary.put("discount", sumOrder?.discount)
+
+            var sharedPreferences = getSharedPreferences("my_pref4", Context.MODE_PRIVATE)
+
+            var deliveryCharges = sharedPreferences.getString("deliveryCharges",null)
+            var discount = sharedPreferences.getString("discount",null)
+
+            var orderAmount = sharedPreferences.getString("orderAmount",null)
+
+            var ourPrice = sharedPreferences.getString("ourPrice",null)
+
+            var totalAmount = sharedPreferences.getString("totalAmount",null)
+
+
+
+            jsonObjectOderSummary.put("totalAmount", totalAmount)
+            jsonObjectOderSummary.put("deliveryCharges", deliveryCharges)
+
+            jsonObjectOderSummary.put("orderAmount", orderAmount)
+            jsonObjectOderSummary.put("ourPrice", ourPrice)
+            jsonObjectOderSummary.put("discount", discount)
 
 
             var addr=  adapterAddress.mList.get(adapterAddress.getSelected())

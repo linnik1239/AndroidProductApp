@@ -19,8 +19,11 @@
 
 
         <activity
+            android:name=".Activities.EditAddressActivity"
+            android:label="@string/title_activity_edit_address"></activity>
+        <activity
             android:name=".Activities.SuccessPayActivity"
-            android:label="@string/title_activity_success_pay"></activity>
+            android:label="@string/title_activity_success_pay" />
         <activity
             android:name=".Activities.PaymentActivity"
             android:label="@string/title_activity_payment" />

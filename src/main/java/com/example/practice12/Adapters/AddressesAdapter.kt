@@ -13,6 +13,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.practice12.Activities.AddressActivity
+import com.example.practice12.Activities.EditAddressActivity
 import com.example.practice12.Activities.SuccessPayActivity
 import com.example.practice12.Models.Address
 import com.example.practice12.R
@@ -58,6 +59,8 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
         return mList.size
     }
 
+
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var mRadio: RadioButton? = null
 
@@ -77,7 +80,6 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
                 var jsonObject2 = JSONObject()
 
 
-
                 var jsonRequest2 = JsonObjectRequest(
                         Request.Method.DELETE,
                         theNewURLPostAddress,
@@ -92,17 +94,25 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
                 )
                 requestQueue2.add(jsonRequest2)
 
-
-
-
                 var intent = Intent(mContext, AddressActivity::class.java)
 
                 mContext.startActivity(intent)
             }
 
-            itemView.setOnClickListener {
-                mContext.startActivity(Intent(mContext, SuccessPayActivity::class.java))
+
+            itemView.AddressesAdaptertext_view_edit_address.setOnClickListener {
+
+                var intent = Intent(mContext, EditAddressActivity::class.java)
+
+                intent.putExtra("ADDRESS",address)
+
+                mContext.startActivity(intent)
+
             }
+
+          //  itemView.setOnClickListener {
+               // mContext.startActivity(Intent(mContext, SuccessPayActivity::class.java))
+            //}
 
 //            radioButton.setOnClickListener View.OnClickListener {
 //                val copyOfLastCheckedPosition: Int = lastCheckedPosition

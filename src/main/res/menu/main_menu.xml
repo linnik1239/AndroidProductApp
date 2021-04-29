@@ -8,15 +8,10 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Cart" />
     <item
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:id="@+id/menu_logout"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="logout" />
-    <item
-        app:showAsAction="never"
-        android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="settings" />
 
 
 </menu>

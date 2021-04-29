@@ -34,9 +34,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-       // intent = Intent(this,EnterActivity2::class.java)
-      //  startActivity(intent)
-
         init()
     }
     private fun init() {

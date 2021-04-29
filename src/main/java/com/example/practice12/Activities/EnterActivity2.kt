@@ -75,19 +75,13 @@ class EnterActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 var theUser = User(sessionManager.getName(),sessionManager.getEmail(),"00000",sessionManager.getMobile())
 
 
-
-                //Toast.makeText(this,theUser.toString(),Toast.LENGTH_LONG).show()
                 Log.d("abc", theUser.toString())
-
-                //var theUser = User("Albert","Maccabi@gmail.con","6432","234234")
-
-                intent.putExtra("USER",theUser)
 
                 startActivity(intent)
 
                 Toast.makeText(applicationContext, "Cart", Toast.LENGTH_SHORT).show()
             }
-            R.id.menu_settings -> Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
+           // R.id.menu_settings -> Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
             R.id.menu_logout -> Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
         }
         return true
@@ -150,7 +144,7 @@ class EnterActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private fun logoutDialoge() {
         var builder = AlertDialog.Builder(this)
         builder.setTitle("Logout")
-        builder.setMessage("Are you sure you wan tto logout")
+        builder.setMessage("Are you sure you wan to logout")
         builder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 Toast.makeText(applicationContext, "Logging out...", Toast.LENGTH_SHORT).show()

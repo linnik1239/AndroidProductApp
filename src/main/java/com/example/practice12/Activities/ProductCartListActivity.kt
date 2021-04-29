@@ -1,5 +1,6 @@
 package com.example.practice12.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -48,26 +49,24 @@ class ProductCartListActivity : AppCompatActivity() {
 
             bundle.putString("TOTAL_PRICE",totalPrice.toString() )
 
-
-
-
-            var theUser = intent.getSerializableExtra("USER") as? User
-
-
-
-
-
             intent = Intent(this,PaymentActivity::class.java)
 
 
-            intent.putExtra("ORDER_SUMMARY",totalOrder)
+            var sharedPreferences = getSharedPreferences("my_pref4", Context.MODE_PRIVATE)
+            var editor = sharedPreferences.edit()
+            editor.putString("deliveryCharges",totalOrder.deliveryCharges.toString())
+            editor.putString("discount",totalOrder.discount.toString())
 
-            intent.putExtra("USER",theUser)
+            editor.putString("orderAmount",totalOrder.orderAmount.toString())
+            editor.putString("ourPrice",totalOrder.ourPrice.toString())
+            editor.putString("totalAmount",totalOrder.totalAmount.toString())
+            editor.commit()
+
+
 
             intent.putExtra("DATA",bundle)
 
             startActivity(intent)
-
 
 
         }
