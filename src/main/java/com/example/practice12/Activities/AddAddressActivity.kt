@@ -61,7 +61,6 @@ class AddAddressActivity : AppCompatActivity() {
                 EndPoints.getOnlyAddress(),
                 jsonObject,
                 Response.Listener {
-                    Log.d("abc", it.toString())
                     startActivity(Intent(this,AddressActivity::class.java))
                 },
                 Response.ErrorListener {
@@ -137,6 +136,10 @@ class AddAddressActivity : AppCompatActivity() {
                 super.onBackPressed()
 
             }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
+            }
 
         }
         return true
@@ -144,7 +147,7 @@ class AddAddressActivity : AppCompatActivity() {
 
     private fun setupToolbar(){
         var toolbar = toolbar
-        toolbar.title = "Addresses"
+        toolbar.title = "New addresses"
         setSupportActionBar(toolbar)
     }
     private fun logoutDialoge() {

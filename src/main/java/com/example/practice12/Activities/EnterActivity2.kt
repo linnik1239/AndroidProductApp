@@ -97,11 +97,8 @@ class EnterActivity2 : AppCompatActivity() {
            // R.id.menu_settings -> Toast.makeText(applicationContext, "Settings", Toast.LENGTH_SHORT).show()
             R.id.menu_logout -> Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
             R.id.menu_order_history -> {
-                //Log.d("abc", "logHistory")
                  intent = Intent(this,OrderHistoryActivity::class.java)
-
                  startActivity(intent)
-
             }
             R.id.menu_back ->{
 

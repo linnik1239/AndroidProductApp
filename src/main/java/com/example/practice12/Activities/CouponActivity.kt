@@ -16,7 +16,6 @@ class CouponActivity : AppCompatActivity() {
 
     private var choise = -1
 
-
     private val AMOUNT_FOR_FIRST_DISCOUNT = 5000.0
 
     private val AMOUNT_FOR_SECOND_DISCOUNT = 2000.0
@@ -69,6 +68,13 @@ class CouponActivity : AppCompatActivity() {
                             editor.putString("ourPrice",mourPrice.toString())
                             editor.putString("totalAmount",mtotalAmount.toString())
                             editor.commit()
+
+
+                            var sharedPreferences2 = getSharedPreferences("my_ref_coupon",Context.MODE_PRIVATE)
+                            editor = sharedPreferences2.edit()
+                            editor.putBoolean("CouponUsed",true)
+                            editor.commit()
+
                             startActivity(Intent(this,TotalOrderSummaryActivity::class.java))
                         }else{
                             Toast.makeText(this,"Total payment amount must be more than 5000$.",Toast.LENGTH_LONG).show()
@@ -76,7 +82,7 @@ class CouponActivity : AppCompatActivity() {
                         }
 
                     }
-                    2 ->{
+                    2->{
 
                         if(morderAmount>AMOUNT_FOR_SECOND_DISCOUNT){
                             mdiscount += 200.0
@@ -88,14 +94,16 @@ class CouponActivity : AppCompatActivity() {
                             editor.putString("ourPrice",mourPrice.toString())
                             editor.putString("totalAmount",mtotalAmount.toString())
                             editor.commit()
+
+                            var sharedPreferences2 = getSharedPreferences("my_ref_coupon",Context.MODE_PRIVATE)
+                            editor = sharedPreferences2.edit()
+                            editor.putBoolean("CouponUsed",true)
+                            editor.commit()
                             startActivity(Intent(this,TotalOrderSummaryActivity::class.java))
                         }else{
                             Toast.makeText(this,"Total payment amount must be more than 2000$.",Toast.LENGTH_LONG).show()
-
                         }
-
                     }
-
                     3->{
 
                         val day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
@@ -117,10 +125,12 @@ class CouponActivity : AppCompatActivity() {
                             editor.putString("totalAmount",mtotalAmount.toString())
                             editor.commit()
 
+                            var sharedPreferences2 = getSharedPreferences("my_ref_coupon",Context.MODE_PRIVATE)
+                            editor = sharedPreferences2.edit()
+                            editor.putBoolean("CouponUsed",true)
+                            editor.commit()
+
                             startActivity(Intent(this,TotalOrderSummaryActivity::class.java))
-
-
-
 
                         }else{
                             if(!(day>=2 && day <=6)){
@@ -152,39 +162,39 @@ class CouponActivity : AppCompatActivity() {
     }
 
 
-//    fun onRadioButtonClicked(view: View) {
-//        if (view is RadioButton) {
-//            // Is the button now checked?
-//            val checked = view.isChecked
-//
-//            when (view.getId()) {
-//                R.id.radio_first ->
-//                    if (checked) {
-//                        choise = 1
-//                        Toast.makeText(this,"First",Toast.LENGTH_LONG).show()
-//
-//                    }
-//                R.id.radio_second ->
-//                    if (checked) {
-//                        choise = 2
-//                        Toast.makeText(this,"Second",Toast.LENGTH_LONG).show()
-//
-//                    }
-//                R.id.radio_third ->
-//                    if (checked) {
-//                        choise = 3
-//                        Toast.makeText(this,"Third",Toast.LENGTH_LONG).show()
-//
-//                    }
-//                else ->{
-//                    if (checked) {
-//                        choise = -1
-//                        Toast.makeText(this,"Nothind",Toast.LENGTH_LONG).show()
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            when (view.getId()) {
+                R.id.radio_first ->
+                    if (checked) {
+                        choise = 1
+                       // Toast.makeText(this,"First",Toast.LENGTH_LONG).show()
+
+                    }
+                R.id.radio_second ->
+                    if (checked) {
+                        choise = 2
+                       // Toast.makeText(this,"Second",Toast.LENGTH_LONG).show()
+
+                    }
+                R.id.radio_third ->
+                    if (checked) {
+                        choise = 3
+                      //  Toast.makeText(this,"Third",Toast.LENGTH_LONG).show()
+
+                    }
+                else ->{
+                    if (checked) {
+                        choise = -1
+                       // Toast.makeText(this,"Nothind",Toast.LENGTH_LONG).show()
+
+                    }
+                }
+            }
+        }
+    }
 
 }

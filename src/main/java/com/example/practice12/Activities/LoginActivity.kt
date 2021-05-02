@@ -45,7 +45,29 @@ class LoginActivity : AppCompatActivity() {
                 EndPoints.getLogin(),
                 jsonObject,
                 Response.Listener {
-                    Log.d("abc", it.toString())
+
+                    var ob = it.getJSONObject("user")
+
+                    var firstName = ob.getString("firstName").toString()
+                    var _id = ob.getString("_id").toString()
+
+                    var email = ob.getString("email").toString()
+                    var mobile = ob.getString("mobile").toString()
+
+
+
+                    Log.d("abc",_id)
+                    var user: User = User(firstName,email,password,mobile)
+
+                    var sessionManager = SessionManager(this)
+                    sessionManager.register(user)
+
+
+
+
+
+                    EndPoints.setUserID(_id)
+
                     sessionManager.setLogin(true)
 
                     intent = Intent(this,EnterActivity2::class.java)

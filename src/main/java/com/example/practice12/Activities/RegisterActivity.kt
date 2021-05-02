@@ -89,12 +89,11 @@ class RegisterActivity : AppCompatActivity() {
                 EndPoints.getRegister(),
                 jsonObject,
                 Response.Listener {
-                    Log.d("abc", it.toString())
 
-                    var user: User = User(theName,theEmail,thePassword,thePhone)
-
-                    var sessionManager = SessionManager(this)
-                    sessionManager.register(user)
+//                    var user: User = User(theName,theEmail,thePassword,thePhone)
+//
+//                    var sessionManager = SessionManager(this)
+//                    sessionManager.register(user)
 
 
                     intent = Intent(this, LoginActivity::class.java)

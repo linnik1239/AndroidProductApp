@@ -80,7 +80,6 @@ class EditAddressActivity : AppCompatActivity() {
                 EndPoints.getAddressAddId(address_id),
                 jsonObject2,
                 Response.Listener {
-                    Log.d("abc", it.toString())
 
 
                     startActivity(Intent(this,AddressActivity::class.java))

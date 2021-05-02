@@ -1,21 +1,28 @@
 package com.example.practice12.Activities
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.practice12.Adapters.AddressesAdapter
 import com.example.practice12.DataBae.DBHelprt
+import com.example.practice12.MainActivity
 import com.example.practice12.Models.Address
 import com.example.practice12.Models.EndPoints
 import com.example.practice12.R
 import com.example.practice12.SessionManager
 import kotlinx.android.synthetic.main.activity_total_order_summary.*
+import kotlinx.android.synthetic.main.app_bar.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.LocalDateTime
@@ -29,6 +36,8 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
 
 
+    lateinit var theAddress: Address
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +49,7 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
 
 
     private fun init(){
+        setupToolbar()
         sessionManager = SessionManager(this)
         dbHelprt = DBHelprt(this)
         adapterAddress = AddressesAdapter(this)
@@ -56,9 +66,28 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
 
 
 
-        var addr=  intent.getSerializableExtra("ADDRESS") as? Address //adapterAddress.mList.get(adapterAddress.getSelected())
+        var sharedPreferences0 = getSharedPreferences("my_pref_final_address",Context.MODE_PRIVATE)
 
-        final_order_address.text = "Address:\nCity: ${addr?.city}\nStreat: ${addr?.streatName}\nHouse num: ${addr?.houseNum}\nType: ${addr?.type}"
+        var city = sharedPreferences0.getString("city",null)
+        var houseNum = sharedPreferences0.getString("houseNum",null)
+
+        var streatName = sharedPreferences0.getString("streatName",null)
+
+        var type = sharedPreferences0.getString("type",null)
+
+        var addr: Address? =null
+
+        addr?.type = type!!
+        addr?.houseNum = houseNum!!
+        addr?.streatName = streatName!!
+        addr?.city = city!!
+
+
+
+
+        final_order_address.text = "Address:\nCity: ${city}\nStreat: ${streatName}\nHouse num: ${houseNum}\nType: ${type}"
+
+
 
 
         var sharedPreferences = getSharedPreferences("my_pref4", Context.MODE_PRIVATE)
@@ -88,7 +117,19 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
 
 
         final_order_button_coupon.setOnClickListener {
-            startActivity(Intent(this,CouponActivity::class.java))
+             sharedPreferences = getSharedPreferences("my_ref_coupon",Context.MODE_PRIVATE)
+
+            var usedCoupon:Boolean = sharedPreferences.getBoolean("CouponUsed",null==false)
+
+
+            if(usedCoupon==false){
+                startActivity(Intent(this,CouponActivity::class.java))
+            }
+            else{
+                Toast.makeText(this,"The coupon used before",Toast.LENGTH_LONG).show()
+            }
+
+
 
         }
 
@@ -215,7 +256,6 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
                 EndPoints.getOrders(),
                 jsonObject,
                 Response.Listener {
-                    Log.d("abc",it.toString())
 
                     intent = Intent(this,SuccessPayActivity::class.java)
                     startActivity(intent)
@@ -241,5 +281,94 @@ class TotalOrderSummaryActivity : AppCompatActivity() {
 
 
     }
+
+
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        return true;
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_cart ->{
+
+
+                intent = Intent(this, ProductCartListActivity::class.java)
+                startActivity(intent)
+
+            }
+            R.id.menu_logout ->{
+                logoutDialoge()
+
+
+
+            }
+            R.id.menu_home ->{
+                intent = Intent(this, EnterActivity2::class.java)
+                startActivity(intent)
+            }
+
+            R.id.menu_back ->{
+                super.onBackPressed()
+
+            }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
+            }
+
+
+        }
+        return true
+    }
+
+    private fun setupToolbar(){
+        var toolbar = toolbar
+        toolbar.title = "Order summary"
+        setSupportActionBar(toolbar)
+    }
+    private fun logoutDialoge() {
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure you wan to logout")
+        builder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                Toast.makeText(applicationContext, "Logging out...", Toast.LENGTH_SHORT).show()
+
+
+                sessionManager = SessionManager(applicationContext)
+                sessionManager.setLogin(false)
+                sessionManager.logout()
+
+                intent = Intent(applicationContext, MainActivity::class.java)
+
+                startActivity(intent)
+                Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
+
+
+
+            }
+        })
+        builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.dismiss()
+            }
+
+        })
+        var alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+
+
+
+
+
 
 }

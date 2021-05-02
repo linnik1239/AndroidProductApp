@@ -80,11 +80,24 @@ class AddressActivity : AppCompatActivity() {
             }else {
 
 
-                var addr = adapterAddress.mList.get(adapterAddress.getSelected())
 
+                var addr :Address = adapterAddress.mList[adapterAddress.getSelected()]
+
+                var sharedPrederence = getSharedPreferences("my_pref_final_address",Context.MODE_PRIVATE)
+
+                var editor = sharedPrederence.edit()
+                editor.putString("city",addr.city)
+                editor.putString("houseNum",addr.houseNum)
+
+                editor.putString("streatName",addr.streatName)
+
+                editor.putString("type",addr.type)
+                editor.commit()
+
+                // var addr = adapterAddress.mList.get(adapterAddress.getSelected())
                 intent = Intent(this, TotalOrderSummaryActivity::class.java)
 
-                intent.putExtra("ADDRESS", addr)
+                //intent.putExtra("ADDRESS", addr)
 
 
                 startActivity(intent)
@@ -138,7 +151,6 @@ class AddressActivity : AppCompatActivity() {
                                         theNewURLPostAddress,
                                         jsonObject2,
                                         Response.Listener {
-                                            Log.d("abc",it.toString())
 
                                         },
                                         Response.ErrorListener {
@@ -167,7 +179,6 @@ class AddressActivity : AppCompatActivity() {
 
                     recycler_view_address.layoutManager = LinearLayoutManager(this)
                     recycler_view_address.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-                    Log.d("abc",it.toString())
 
                 },
                 Response.ErrorListener {
@@ -214,6 +225,10 @@ class AddressActivity : AppCompatActivity() {
             R.id.menu_back ->{
                 super.onBackPressed()
 
+            }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
             }
 
         }

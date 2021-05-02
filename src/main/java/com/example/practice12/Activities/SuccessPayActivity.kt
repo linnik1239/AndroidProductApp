@@ -1,5 +1,6 @@
 package com.example.practice12.Activities
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.practice12.DataBae.DBHelprt
 import com.example.practice12.MainActivity
 import com.example.practice12.R
 import com.example.practice12.SessionManager
@@ -16,26 +18,26 @@ import kotlinx.android.synthetic.main.app_bar.*
 class SuccessPayActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
 
+    lateinit var dbHelprt: DBHelprt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_success_pay)
+        dbHelprt = DBHelprt(this)
+        dbHelprt.deleteAllProdcuts()
+
+
         setupToolbar()
 
 
+        var sharedPreferences = getSharedPreferences("my_ref_coupon", Context.MODE_PRIVATE)
+
+
+        var editor = sharedPreferences.edit()
+        editor.putBoolean("CouponUsed",false)
+        editor.commit()
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -48,17 +50,11 @@ class SuccessPayActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_cart ->{
-
-
                 intent = Intent(this, ProductCartListActivity::class.java)
                 startActivity(intent)
-
             }
             R.id.menu_logout ->{
                 logoutDialoge()
-
-
-
             }
             R.id.menu_home ->{
                 intent = Intent(this, EnterActivity2::class.java)
@@ -69,6 +65,10 @@ class SuccessPayActivity : AppCompatActivity() {
                 intent = Intent(this, AddressActivity::class.java)
                 startActivity(intent)
             }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
+            }
 
         }
         return true
@@ -76,7 +76,7 @@ class SuccessPayActivity : AppCompatActivity() {
 
     private fun setupToolbar(){
         var toolbar = toolbar
-        toolbar.title = "Addresses"
+        toolbar.title = "Approval"
         setSupportActionBar(toolbar)
     }
     private fun logoutDialoge() {
@@ -86,19 +86,12 @@ class SuccessPayActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 Toast.makeText(applicationContext, "Logging out...", Toast.LENGTH_SHORT).show()
-
-
                 sessionManager = SessionManager(applicationContext)
                 sessionManager.setLogin(false)
                 sessionManager.logout()
-
                 intent = Intent(applicationContext, MainActivity::class.java)
-
                 startActivity(intent)
                 Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
-
-
-
             }
         })
         builder.setNegativeButton("No", object : DialogInterface.OnClickListener{

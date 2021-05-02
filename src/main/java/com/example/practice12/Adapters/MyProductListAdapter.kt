@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.row_my_product_list_adapter.view.*
 import kotlinx.android.synthetic.main.row_product_adapter.view.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class MyProductListAdapter(var mContext: Context, var mList: ArrayList<Product>) : BaseAdapter() {
     lateinit var dbHelprt: DBHelprt
@@ -54,7 +56,10 @@ class MyProductListAdapter(var mContext: Context, var mList: ArrayList<Product>)
 
 
         var totalPrice = product.price.toString().toDouble() * product.amount.toString().toInt()
-        view.text_view__total_price_my_list.text = "Total: ${totalPrice.toString()}$"
+        val totalPriceD = BigDecimal(totalPrice).setScale(3, RoundingMode.HALF_EVEN)
+
+
+        view.text_view__total_price_my_list.text = "Total: ${totalPriceD.toString()}$"
 
        // view.text_view_amount_my_list.text = product.amount.toString()
         view.text_num_detail_info_my_list.text =  product.amount.toString()
@@ -62,11 +67,16 @@ class MyProductListAdapter(var mContext: Context, var mList: ArrayList<Product>)
         view.button_plus_details_my_list.setOnClickListener {
             var num = view.text_num_detail_info_my_list.text.toString().toInt()
             ++num
+
+
             view.text_num_detail_info_my_list.text = num.toString()
           //  view.text_view_amount_my_list.text = num.toString()
 
             var totalPrice = product.price.toString().toDouble() * num
-            view.text_view__total_price_my_list.text = "Total: ${totalPrice.toString()}$"
+
+            val totalPriceD = BigDecimal(totalPrice).setScale(3, RoundingMode.HALF_EVEN)
+
+            view.text_view__total_price_my_list.text = "Total: ${totalPriceD.toString()}$"
 
 
             mList[position].amount = num
@@ -83,7 +93,10 @@ class MyProductListAdapter(var mContext: Context, var mList: ArrayList<Product>)
             }
 
             var totalPrice = product.price.toString().toDouble() * num
-            view.text_view__total_price_my_list.text = "Total: ${totalPrice.toString()}$"
+
+            val totalPriceD = BigDecimal(totalPrice).setScale(3, RoundingMode.HALF_EVEN)
+
+            view.text_view__total_price_my_list.text = "Total: ${totalPriceD.toString()}$"
 
 
             mList[position].amount = num

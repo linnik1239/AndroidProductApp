@@ -27,6 +27,8 @@ import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.activity_sub_category.*
 import kotlinx.android.synthetic.main.app_bar.*
 import kotlinx.android.synthetic.main.menu_cart_layout.view.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -79,7 +81,12 @@ class ProductDetailActivity : AppCompatActivity() {
 
             if(theProduct!=null) {
                 var totalPrice = theProduct.price * num
-                text_view_total_price.text = "Total price = ${totalPrice}$"
+
+                val totalPriceD = BigDecimal(totalPrice).setScale(3, RoundingMode.HALF_EVEN)
+
+
+                text_view_total_price.text = "Total price = ${totalPriceD}$"
+
             }
 
             text_num_detail_info.text = num.toString()
@@ -90,7 +97,10 @@ class ProductDetailActivity : AppCompatActivity() {
             ++num
             if(theProduct!=null) {
                 var totalPrice = theProduct.price * num
-                text_view_total_price.text = "Total price = ${totalPrice}$"
+
+                val totalPriceD = BigDecimal(totalPrice).setScale(3, RoundingMode.HALF_EVEN)
+
+                text_view_total_price.text = "Total price = ${totalPriceD}$"
             }
 
             text_num_detail_info.text = num.toString()
@@ -172,6 +182,10 @@ class ProductDetailActivity : AppCompatActivity() {
 
                 super.onBackPressed()
 
+            }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
             }
 
 

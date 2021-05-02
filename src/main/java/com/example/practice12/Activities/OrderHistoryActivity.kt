@@ -65,15 +65,14 @@ class OrderHistoryActivity : AppCompatActivity()  {
             EndPoints.getOrdersUID(),
             jsonObject,
             Response.Listener {
+
                 val array = it.getJSONArray("data")
 
 
 
                 if(array!=null) {
-                    Log.d("abc","***********************************************")
 
                     for (i in 0 until array.length()) {
-                        Log.d("abc","----------------------------------------------")
 
                         val position: JSONObject = array.getJSONObject(i)
                         var user =position.getJSONObject("user")
@@ -108,17 +107,13 @@ class OrderHistoryActivity : AppCompatActivity()  {
 
                         var date =position.getString("date")
                         if(email.equals(sessionManager.getEmail())){
-                            Log.d("abc","History")
 
-                            Log.d("abc","Date: "+date)
                             var hist = History(date,amountProducts,orderAmount)
                             mList.add(hist)
                         }
-                        Log.d("abc","["+email.toString()+"]")
 
 
                     }
-                    Log.d("abc",mList.toString())
 
                     adapterHistory = AdapterOrderHIstory(this)
                     adapterHistory.setData(mList)

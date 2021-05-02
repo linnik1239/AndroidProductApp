@@ -25,8 +25,12 @@ import org.json.JSONObject
 class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdapter.ViewHolder>() {
     var mSelectedItem = -1
 
+
+
     var mList: ArrayList<Address> = ArrayList()
     lateinit var radioButton: RadioButton
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressesAdapter.ViewHolder {
         var view = LayoutInflater.from(mContext).inflate(

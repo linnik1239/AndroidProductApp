@@ -175,9 +175,10 @@ class SubCategoryActivity : AppCompatActivity(), ProductListFragment.OnFragmentI
             }
             R.id.menu_logout ->{
                 logoutDialoge()
-
-
-
+            }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
             }
             R.id.menu_home ->{
                 intent = Intent(this, EnterActivity2::class.java)

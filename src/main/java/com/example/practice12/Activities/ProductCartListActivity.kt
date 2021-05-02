@@ -89,7 +89,6 @@ class ProductCartListActivity : AppCompatActivity() {
         list =dbHelprt.getAllProduccts()
         var productAdapter = MyProductListAdapter(this!!, list as ArrayList<Product>)
         list_view_product_cart.adapter = productAdapter
-        Log.d("abc",list.toString())
 
         findTotal()
 
@@ -162,6 +161,10 @@ class ProductCartListActivity : AppCompatActivity() {
             R.id.menu_back ->{
                 super.onBackPressed()
 
+            }
+            R.id.menu_order_history -> {
+                intent = Intent(this,OrderHistoryActivity::class.java)
+                startActivity(intent)
             }
 
 

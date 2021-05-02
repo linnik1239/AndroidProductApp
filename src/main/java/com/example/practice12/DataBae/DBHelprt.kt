@@ -104,6 +104,44 @@ class DBHelprt(var mContext: Context):SQLiteOpenHelper(mContext,DATABASE_NAME,nu
 
         return db.delete(TABLE_NAME,whereClause,whereArgs)
     }
+
+
+    fun deleteAllProdcuts(){
+        var columns = arrayOf(
+                COLUMN_ID,
+                COLUMN_IMAGE_NAME,
+                COLUMN_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_PRICE,
+                COLUMN_MRP,
+                COLUMN_AMOUNT
+        )
+        var cursor = db.query(TABLE_NAME,columns,null,null,null,null,null)
+
+        if(cursor !=null && cursor.moveToFirst() ){
+            do{
+
+
+                var image = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_NAME))
+                var name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                var description = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION))
+                var price = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE))
+
+                var amount = cursor.getInt(cursor.getColumnIndex(COLUMN_AMOUNT))
+                var _id = cursor.getString(cursor.getColumnIndex(COLUMN_ID))
+                var mrp = cursor.getDouble(cursor.getColumnIndex(COLUMN_MRP))
+
+                var product = Product(_id,name,name,image,price,mrp,amount)
+
+                deleteProduct(product)
+
+
+            }while(cursor.moveToNext())
+
+        }
+
+
+    }
 //
 
     fun getAllProduccts():List<Product>{

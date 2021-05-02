@@ -13,7 +13,11 @@ class EndPoints {
         private const val URL_IMAGE ="http://rjtmobile.com/grocery/images/"
 
                                //"603c691772642f00171f30c2"
-        private const val ID = "603c691772642f00171f30c2"
+        private var ID = "603c691772642f00171f30c2"
+
+        fun setUserID(theID:String){
+            ID = theID
+        }
 
         private const val BASE_URL = "http://grocery-second-app.herokuapp.com/api/"
 
