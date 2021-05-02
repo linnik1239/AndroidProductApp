@@ -23,4 +23,5 @@
     <string name="title_activity_payment">PaymentActivity</string>
     <string name="title_activity_success_pay">SuccessPayActivity</string>
     <string name="title_activity_edit_address">EditAddressActivity</string>
+    <string name="title_activity_order_history">OrderHistoryActivity</string>
 </resources>

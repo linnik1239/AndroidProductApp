@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:divider="?android:dividerHorizontal"
+    android:showDividers="middle"
+
+
+    android:orientation="vertical">
+
+    <include layout="@layout/app_bar" />
+
+     <TextView
+         android:paddingBottom="20dp"
+
+         android:id="@+id/final_order_name"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textSize="18dp"
+         android:text = "Name"/>
+    <TextView
+        android:id="@+id/final_order_date"
+        android:paddingBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "Date"/>
+
+    <TextView
+        android:id="@+id/final_order_phone"
+        android:paddingBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "phone"/>
+    <TextView
+
+        android:id="@+id/final_order_address"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "Address"/>
+    <TextView
+        android:id="@+id/final_order_total_sum"
+        android:paddingBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "Total sum"/>
+    <TextView
+        android:id="@+id/final_order_discount"
+        android:paddingBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "Discount"/>
+
+    <TextView
+        android:id="@+id/final_order_deliverly_charges"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text = "Deliverly charges"
+        />
+    <TextView
+        android:id="@+id/final_order_amount_to_pay"
+        android:paddingBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textStyle="bold"
+
+        android:text = "Amount to pay"/>
+
+
+</LinearLayout>
+
+
+    <Button
+        android:id="@+id/final_order_button_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_above="@+id/final_order_button_accept"
+        android:text = "Use coupon"
+        android:background="#9999"
+        android:backgroundTint="@color/black"
+        android:textStyle="bold"
+
+        />
+
+
+
+<Button
+    android:id="@+id/final_order_button_accept"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:text = "Pay for order"
+    android:background="#9999"
+    android:backgroundTint="@color/black"
+    android:textStyle="bold"
+
+    />
+
+
+
+</RelativeLayout>
+

@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 //import androidx.security.crypto.EncryptedSharedPreferences
 //import androidx.security.crypto.MasterKeys
 import com.android.volley.Request
@@ -71,36 +73,6 @@ class RegisterActivity : AppCompatActivity() {
                 thePassword
             )
 
-
-
-            var user: User = User(theName,theEmail,thePassword,thePhone)
-
-            var sessionManager = SessionManager(this)
-            sessionManager.register(user)
-
-
-           // var masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-
-           // var theSharedPreferance = EncryptedSharedPreferences.create("my_pref2",masterKey,
-            //applicationContext,EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            //EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM)
-
-
-            var sharePreferences = getSharedPreferences("my_pref3", Context.MODE_PRIVATE)
-
-            var editor = sharePreferences.edit()
-            editor.putString("NAME",theName)
-            editor.putString("EMAIL",theEmail)
-            editor.putString("PASSWORD",thePassword)
-            editor.putString("PHONE",theName)
-
-            editor.commit()
-
-
-
-
-
-
             var jsonObject = JSONObject()
             jsonObject.put("firstName", theName)
             jsonObject.put("email", theEmail)
@@ -109,18 +81,21 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-
-
-            var theURL_Register = "http://grocery-second-app.herokuapp.com/api/auth/register"
+           // var theURL_Register = "http://grocery-second-app.herokuapp.com/api/auth/register"
 
             var requestQueue = Volley.newRequestQueue(this)
             var jsonRequest = JsonObjectRequest(
                 Request.Method.POST,
-                theURL_Register,
+                EndPoints.getRegister(),
                 jsonObject,
                 Response.Listener {
-                    //Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
                     Log.d("abc", it.toString())
+
+                    var user: User = User(theName,theEmail,thePassword,thePhone)
+
+                    var sessionManager = SessionManager(this)
+                    sessionManager.register(user)
+
 
                     intent = Intent(this, LoginActivity::class.java)
 
@@ -134,32 +109,19 @@ class RegisterActivity : AppCompatActivity() {
             )
             requestQueue.add(jsonRequest)
 
-            //Toast.makeText(applicationContext,"User has been added",Toast.LENGTH_LONG).show()
-
-
-
-
         }
 
     }
-
-
-
 
     private fun setupPermissionsAudio() {
         val permission = ContextCompat.checkSelfPermission(this,
             Manifest.permission.RECORD_AUDIO)
 
-
-
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i("TAG", "Permission to record denied")
             makeRequestAudio()
         }
-
-
     }
-
     private fun setupPermissionCamera(){
 
 
@@ -171,8 +133,7 @@ class RegisterActivity : AppCompatActivity() {
             makeRequestCamera()
         }
     }
-    //
-//
+
     private fun makeRequestCamera(){
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -184,10 +145,6 @@ class RegisterActivity : AppCompatActivity() {
             arrayOf(Manifest.permission.RECORD_AUDIO),
             RECORD_REQUEST_CODE)
     }
-
-
-
-
 
 }
 

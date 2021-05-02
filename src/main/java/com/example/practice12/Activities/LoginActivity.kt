@@ -45,28 +45,14 @@ class LoginActivity : AppCompatActivity() {
                 EndPoints.getLogin(),
                 jsonObject,
                 Response.Listener {
-                   // Toast.makeText(applicationContext,  it.toString(), Toast.LENGTH_SHORT)
-                   //     .show()
-
                     Log.d("abc", it.toString())
                     sessionManager.setLogin(true)
 
-
-//                    var firstname:String? = jsonObject.get("firstName") as? String
-  //                  var email:String? = jsonObject.get("email") as? String
- //                   var mobile:String?  = jsonObject.get("mobile") as? String
-
-           //         var user = User(firstname,email,
-       //             "0000000", mobile)
-
-
                     intent = Intent(this,EnterActivity2::class.java)
 
-  //                  intent.putExtra("USER",user)
                     startActivity(intent)
                 },
                 Response.ErrorListener {
-                    //Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
                     Log.d("abc", it.toString())
                 }
             )

@@ -2,10 +2,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    >
 
 
 
+    <include layout="@layout/app_bar"/>
 
 
     <TextView
@@ -27,13 +28,7 @@
         android:id = "@+id/payment_summary_detail_3"
         />
 
-    <Button
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="back"
-        android:id="@+id/payment_button_detail_back2"
-        />
 
 
     <Button
@@ -41,7 +36,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Order"
+        android:text="Continue"
         android:id="@+id/payment_button_detail_order"
         />
 

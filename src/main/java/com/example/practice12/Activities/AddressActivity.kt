@@ -1,10 +1,14 @@
 package com.example.practice12.Activities
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +18,16 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.practice12.Adapters.AddressesAdapter
 import com.example.practice12.DataBae.DBHelprt
+import com.example.practice12.MainActivity
 import com.example.practice12.Models.*
 import com.example.practice12.R
 import com.example.practice12.SessionManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_address.*
 import kotlinx.android.synthetic.main.activity_enter2.*
+import kotlinx.android.synthetic.main.activity_product_cart_list.*
 import kotlinx.android.synthetic.main.activity_sub_category.*
+import kotlinx.android.synthetic.main.app_bar.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -35,6 +42,13 @@ class AddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_address)
+        sessionManager = SessionManager(this)
+
+
+        setupToolbar()
+
+
+
 
         AddressActivity_add_address.setOnClickListener {
             //Toast.makeText(this,"Num = "+adapterAddress.getSelected(),Toast.LENGTH_LONG).show()
@@ -42,169 +56,60 @@ class AddressActivity : AppCompatActivity() {
 
             intent = Intent(this,AddAddressActivity::class.java)
             startActivity(intent)
+
+
+
+//            var addr=  adapterAddress.mList.get(adapterAddress.getSelected())
+//
+//            intent = Intent(this,TotalOrderSummaryActivity::class.java)
+//
+//            intent.putExtra("ADDRESS",addr)
+//
+//
+//
+//            startActivity(intent)
+
         }
 
 
         AddressActivity_get_info.setOnClickListener {
 
-            sessionManager = SessionManager(this)
+            if(adapterAddress.mList.size<=0){
+                Toast.makeText(this,"Please add address to send.",Toast.LENGTH_LONG).show()
 
-            var theUser = intent.getSerializableExtra("USER") as? User
-
-            var jsonObjectUser = JSONObject()
-            jsonObjectUser.put("email", sessionManager.getEmail())
-            jsonObjectUser.put("mobile",sessionManager.getMobile())
+            }else {
 
 
-//            var jsonObjectUser = JSONObject()
-//            jsonObjectUser.put("email", theUser?.email)
-//            jsonObjectUser.put("mobile",theUser?.phone)
+                var addr = adapterAddress.mList.get(adapterAddress.getSelected())
 
-          //  jsonObjectOderSummary.put("_id", "000001111")
+                intent = Intent(this, TotalOrderSummaryActivity::class.java)
 
-
-
-          //  var sumOrder = intent.getSerializableExtra("ORDER_SUMMARY") as? orderSummary
+                intent.putExtra("ADDRESS", addr)
 
 
-            var jsonObjectOderSummary = JSONObject()
-
-
-            var sharedPreferences = getSharedPreferences("my_pref4", Context.MODE_PRIVATE)
-
-            var deliveryCharges = sharedPreferences.getString("deliveryCharges",null)
-            var discount = sharedPreferences.getString("discount",null)
-
-            var orderAmount = sharedPreferences.getString("orderAmount",null)
-
-            var ourPrice = sharedPreferences.getString("ourPrice",null)
-
-            var totalAmount = sharedPreferences.getString("totalAmount",null)
-
-
-
-            jsonObjectOderSummary.put("totalAmount", totalAmount)
-            jsonObjectOderSummary.put("deliveryCharges", deliveryCharges)
-
-            jsonObjectOderSummary.put("orderAmount", orderAmount)
-            jsonObjectOderSummary.put("ourPrice", ourPrice)
-            jsonObjectOderSummary.put("discount", discount)
-
-
-            var addr=  adapterAddress.mList.get(adapterAddress.getSelected())
-            var jsonObjectShippingAddress = JSONObject()
-            jsonObjectShippingAddress.put("pincode","43")
-            jsonObjectShippingAddress.put("houseNo", addr.houseNum)
-            jsonObjectShippingAddress.put("streetName", addr.streatName)
-            jsonObjectShippingAddress.put("type", addr.type)
-            jsonObjectShippingAddress.put("city", addr.city)
-
-
-
-//            var jsonObjectPrpduct = JSONObject()
-//            jsonObjectPrpduct.put("mrp", 55)
-//            jsonObjectPrpduct.put("image", "asdfads.jpg")
-//
-//            jsonObjectPrpduct.put("quantity", 11)
-//
-//            jsonObjectPrpduct.put("price", 155)
-//            jsonObjectPrpduct.put("productName", "THE product")
-
-
-
-            dbHelprt = DBHelprt(this)
-            var mList = dbHelprt.getAllProduccts()
-
-            var jsonArrayProducts = JSONArray()
-
-
-
-            for(item in mList){
-
-                var jsonObjectPrpduct = JSONObject()
-                jsonObjectPrpduct.put("mrp", item.mrp)
-                jsonObjectPrpduct.put("image", item.image)
-
-                jsonObjectPrpduct.put("quantity", item.amount)
-
-                jsonObjectPrpduct.put("price", item.price)
-                jsonObjectPrpduct.put("productName", item.name)
-
-                jsonArrayProducts.put(jsonObjectPrpduct )
-
-
+                startActivity(intent)
             }
-
-
-
-            var jsonObject = JSONObject()
-          //  jsonObject.put("_id","534534")
-
-            jsonObject.put("orderSummary",jsonObjectOderSummary)
-
-            jsonObject.put("user",jsonObjectUser)
-            jsonObject.put("shippingAddress",jsonObjectShippingAddress)
-            jsonObject.put("products",jsonArrayProducts)
-
-
-            jsonObject.put("userId","603c691772642f00171f30c2")
-
-
-
-
-
-
-            var requestQueue = Volley.newRequestQueue(this)
-
-            var theURLPostOrder = "http://grocery-second-app.herokuapp.com/api/orders"//"http://grocery-second-app.herokuapp.com/api/orders/603c691772642f00171f30c2"
-
-            var jsonRequest = JsonObjectRequest(
-                Request.Method.POST,
-                theURLPostOrder,
-                jsonObject,
-                Response.Listener {
-                    Log.d("abc",it.toString())
-
-                    intent = Intent(this,SuccessPayActivity::class.java)
-                    startActivity(intent)
-
-                },
-                Response.ErrorListener {
-                    Log.d("abc",it.toString())
-                }
-
-            )
-            requestQueue.add(jsonRequest)
-
-
-
-
-
-
-
-
-
 
 
 
         }
 
 
-        Log.d("abc","ttt")
+     //   Log.d("abc","ttt")
     //    AddressActivity_get_info.setOnClickListener {
-            Log.d("abc","mmm")
+          //  Log.d("abc","mmm")
 
 
             var jsonObject = JSONObject()
 
             var requestQueue = Volley.newRequestQueue(this)
 
-            var theURLPostAddress = "http://grocery-second-app.herokuapp.com/api/address/603c691772642f00171f30c2"
+          //  var theURLPostAddress = "http://grocery-second-app.herokuapp.com/api/address/603c691772642f00171f30c2"
 
             var addressList = ArrayList<Address>()
             var jsonRequest = JsonObjectRequest(
                 Request.Method.GET,
-                theURLPostAddress,
+                EndPoints.getAddress(),
                 jsonObject,
                 Response.Listener {
                     val array = it.getJSONArray("data") //as ArrayList<Address>()
@@ -245,7 +150,19 @@ class AddressActivity : AppCompatActivity() {
                         }
                     }
                     adapterAddress = AddressesAdapter(this)
+
                     adapterAddress.setData(addressList)
+
+                    if(adapterAddress.mList.size<=0){
+                        text_view_empty_address.text = "The address list is empty"
+                        text_view_empty_address.textSize = 40F
+                    }else{
+                        text_view_empty_address.text = ""
+                        text_view_empty_address.textSize = 0F
+                    }
+
+
+
                     recycler_view_address.adapter = adapterAddress
 
                     recycler_view_address.layoutManager = LinearLayoutManager(this)
@@ -264,4 +181,83 @@ class AddressActivity : AppCompatActivity() {
         // Enables Always-on
         //setAmbientEnabled()
     }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        return true;
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_cart ->{
+
+
+                intent = Intent(this, ProductCartListActivity::class.java)
+                startActivity(intent)
+
+            }
+            R.id.menu_logout ->{
+                logoutDialoge()
+
+
+
+            }
+            R.id.menu_home ->{
+                intent = Intent(this, EnterActivity2::class.java)
+                startActivity(intent)
+            }
+
+            R.id.menu_back ->{
+                super.onBackPressed()
+
+            }
+
+        }
+        return true
+    }
+
+    private fun setupToolbar(){
+        var toolbar = toolbar
+        toolbar.title = "Addresses"
+        setSupportActionBar(toolbar)
+    }
+    private fun logoutDialoge() {
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure you wan to logout")
+        builder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                Toast.makeText(applicationContext, "Logging out...", Toast.LENGTH_SHORT).show()
+
+
+                sessionManager = SessionManager(applicationContext)
+                sessionManager.setLogin(false)
+                sessionManager.logout()
+
+                intent = Intent(applicationContext, MainActivity::class.java)
+
+                startActivity(intent)
+                Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
+
+
+
+            }
+        })
+        builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.dismiss()
+            }
+
+        })
+        var alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+
+
+
 }

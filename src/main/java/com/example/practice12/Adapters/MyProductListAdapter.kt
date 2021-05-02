@@ -10,6 +10,7 @@ import android.widget.BaseAdapter
 import com.example.myapplication.models.Product
 import com.example.practice12.Activities.ProductCartListActivity
 import com.example.practice12.DataBae.DBHelprt
+import com.example.practice12.Models.EndPoints
 import com.example.practice12.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
@@ -101,7 +102,7 @@ class MyProductListAdapter(var mContext: Context, var mList: ArrayList<Product>)
 
         Picasso
             .get()
-            .load("http://rjtmobile.com/grocery/images/"+product.image)
+            .load(EndPoints.getImageURL()+product.image)
             .into(view.image_view_product_my_list)
         return view
 

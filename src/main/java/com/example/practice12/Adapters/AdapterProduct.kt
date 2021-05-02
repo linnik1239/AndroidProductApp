@@ -18,6 +18,7 @@ import com.example.myapplication.models.Category2
 import com.example.myapplication.models.Product
 import com.example.practice12.Activities.ProductDetailActivity
 import com.example.practice12.Models.Category
+import com.example.practice12.Models.EndPoints
 import com.example.practice12.Models.SpecificProduct
 import com.example.practice12.R
 
@@ -27,7 +28,10 @@ import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.row_product_adapter.view.*
 
-class AdapterProduct(var mContext: Context, var mList: ArrayList<Product>) : BaseAdapter() {
+class AdapterProduct(var mContext: Context, var mList: ArrayList<Product>, var catId:Int? ) : BaseAdapter() {
+
+  //  private var catIdInner: Int? = null
+
     override fun getCount(): Int {
         return mList.size
     }
@@ -46,7 +50,15 @@ class AdapterProduct(var mContext: Context, var mList: ArrayList<Product>) : Bas
         var product = mList[position]
 
             view.setOnClickListener {
+
                 var intent = Intent(mContext, ProductDetailActivity::class.java)
+
+
+
+                var bundle = Bundle()
+                bundle.putString("CAT_ID",catId.toString())
+                intent.putExtra("DATA",bundle)
+
                 intent.putExtra("PRODUCT",product)
                 mContext.startActivity( intent)
             }
@@ -55,7 +67,7 @@ class AdapterProduct(var mContext: Context, var mList: ArrayList<Product>) : Bas
         view.text_view_price.text = "Price: "+product.price+"$"
         Picasso
             .get()
-            .load("http://rjtmobile.com/grocery/images/"+product.image)
+            .load(EndPoints.getImageURL()+product.image)
             .into(view.image_view_product)
         return view
     }

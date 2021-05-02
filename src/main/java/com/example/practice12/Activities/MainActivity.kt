@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.GridLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,12 +28,14 @@ import com.squareup.picasso.Picasso
 import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
+
+
     var mList: ArrayList<Category> = ArrayList()
     lateinit var adapterCategory: AdapterCategory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        //startActivity(Intent(this,EnterActivity2::class.java))
 
         init()
     }

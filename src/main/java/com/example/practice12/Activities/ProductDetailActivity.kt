@@ -6,9 +6,15 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.models.Product
 import com.example.practice12.DataBae.DBHelper
 import com.example.practice12.DataBae.DBHelprt
@@ -18,7 +24,9 @@ import com.example.practice12.R
 import com.example.practice12.SessionManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
+import kotlinx.android.synthetic.main.activity_sub_category.*
 import kotlinx.android.synthetic.main.app_bar.*
+import kotlinx.android.synthetic.main.menu_cart_layout.view.*
 
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -27,13 +35,26 @@ class ProductDetailActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
 
     lateinit var dbHelprt: DBHelprt
-
+    private var textViewCartCount: TextView? = null
+    private var cartIcon : ImageView? = null
+    private lateinit var drawLayout: DrawerLayout
 
     //private var specificProduct:SpecificProduct? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+
+
+        drawLayout = drawer_layoutProductDetailActivity
+        // navView = nav_view
+
+        var toggle = ActionBarDrawerToggle(
+            this, drawLayout, toolbar, 0,0
+        )
+        drawLayout.addDrawerListener(toggle)
+
+        dbHelprt = DBHelprt(this)
 
 
         setupToolbar()
@@ -43,11 +64,11 @@ class ProductDetailActivity : AppCompatActivity() {
             intent.getSerializableExtra("PRODUCT") as Product?
 
         button_add_product.setOnClickListener {
-            dbHelprt = DBHelprt(this)
-
                 if(theProduct!=null){
                     theProduct.amount = text_num_detail_info.text.toString().toInt()
                     dbHelprt.addProduct(theProduct)
+                    updateCartCount()
+
                 }
         }
 
@@ -93,10 +114,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 .get()
                 .load("http://rjtmobile.com/grocery/images/" + theProduct.image)
                 .into(image_view_product2)
-            button_detail_back.setOnClickListener {
-                intent = Intent(this, EnterActivity2::class.java)
-                startActivity(intent)
-            }
+
         }
     }
 
@@ -105,6 +123,26 @@ class ProductDetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        var item =  menu?.findItem(R.id.menu_cart)
+        MenuItemCompat.setActionView(item, R.layout.menu_cart_layout)
+        var view = MenuItemCompat.getActionView(item)
+        textViewCartCount = view.text_view_cart_count
+
+        updateCartCount()
+        textViewCartCount!!.setOnClickListener {
+            Toast.makeText(applicationContext, "Cart", Toast.LENGTH_SHORT).show()
+        }
+        cartIcon  =view.cart_with_num
+
+        //  view.cart
+
+        cartIcon!!.setOnClickListener {
+
+            intent = Intent(this, ProductCartListActivity::class.java)
+            startActivity(intent)
+        }
+
 
         return true;
     }
@@ -125,14 +163,33 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
             }
+            R.id.menu_home ->{
+                intent = Intent(this, EnterActivity2::class.java)
+                startActivity(intent)
+            }
+
+            R.id.menu_back ->{
+
+                super.onBackPressed()
+
+            }
+
 
         }
         return true
     }
-
+    private fun updateCartCount(){
+        var count = dbHelprt.getAllProduccts().size;
+        if(count == 0){
+            textViewCartCount?.visibility = View.GONE
+        }else{
+            textViewCartCount?.visibility = View.VISIBLE
+            textViewCartCount?.text = count.toString()
+        }
+    }
     private fun setupToolbar(){
         var toolbar = toolbar
-        toolbar.title = "Categoty"
+        toolbar.title = "Product details"
         setSupportActionBar(toolbar)
     }
     private fun logoutDialoge() {

@@ -16,11 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Practice12"
         android:usesCleartextTraffic="true">
-
-
+        <activity android:name=".Activities.CouponActivity"></activity>
+        <activity android:name=".Activities.TotalOrderSummaryActivity" />
+        <activity
+            android:name=".Activities.OrderHistoryActivity"
+            android:label="@string/title_activity_order_history" />
         <activity
             android:name=".Activities.EditAddressActivity"
-            android:label="@string/title_activity_edit_address"></activity>
+            android:label="@string/title_activity_edit_address" />
         <activity
             android:name=".Activities.SuccessPayActivity"
             android:label="@string/title_activity_success_pay" />

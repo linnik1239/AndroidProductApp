@@ -1,33 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    >
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:fitsSystemWindows="true"
+    >
+
+    <include layout="@layout/app_bar"/>
+
+
+    <TextView
+        android:id="@+id/text_view_empty_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="0dp"
+        android:text = ""/>
 
 
     <ListView
         android:id="@+id/list_view_product_cart"
         android:layout_width="match_parent"
-        android:layout_height="430dp" />
-
-
-    <Button
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="back"
-        android:id="@+id/button_detail_back2"
-        />
-
-
-    <Button
-
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Order"
-        android:id="@+id/button_detail_order"
-        />
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
+
+
+    <Button
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:id="@+id/button_detail_order"
+        android:background="#9999"
+        android:backgroundTint="@color/black"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        />
+
+
+</RelativeLayout>

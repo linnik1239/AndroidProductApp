@@ -1,10 +1,12 @@
 package com.example.practice12
 
 import android.content.Context
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.example.practice12.Models.User
 
 class SessionManager(val mContext: Context) {
-    private val FILE_NAME = "my_pref3"
+    private val FILE_NAME = "my_pref5"
     private val KEY_NAME = "name"
     private val KEY_EMAIL = "email"
     private val KEY_PASSWORD = "password"
@@ -12,8 +14,23 @@ class SessionManager(val mContext: Context) {
 
     private val KEY_IS_LOGGED_IN = "isLoggedIn"
 
+    val masterKey = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-    var sharedPreferences = mContext.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
+
+
+    var sharedPreferences = EncryptedSharedPreferences.create(
+            "my_pref5",
+    masterKey,
+        mContext,
+    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+
+    )
+
+
+
+
+    //getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
     var editor = sharedPreferences.edit()
 

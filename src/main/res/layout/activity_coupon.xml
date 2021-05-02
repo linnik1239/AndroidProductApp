@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/teal_700"
+   >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/radio_first"
+            android:layout_width="220dp"
+            android:layout_height="170dp"
+            android:layout_margin="2dp"
+            android:background="@color/white"
+
+            android:drawableRight="@drawable/trd"
+
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_second"
+            android:layout_width="220dp"
+            android:layout_height="170dp"
+            android:layout_margin="2dp"
+            android:background="@color/white"
+
+            android:drawableRight="@drawable/scnd"
+
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_third"
+            android:layout_width="220dp"
+            android:layout_height="170dp"
+            android:layout_margin="2dp"
+            android:background="@color/white"
+
+            android:drawableRight="@drawable/frst"
+
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+
+
+
+
+</LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text= "Back"
+        android:id="@+id/coupon_back"
+        android:layout_above="@+id/coupon_choose"
+        />
+
+
+    <Button
+        android:id="@+id/coupon_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text= "Choose"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>
+
+
+
+

@@ -90,7 +90,9 @@ class ProductListFragment : Fragment() {
                     productList.add(Product(item._id,item.productName, item.description, item.image,item.price,item.mrp,0))
 
                 }
-                var productAdapter = AdapterProduct(mContext!!, productList)
+
+
+                var productAdapter = AdapterProduct(mContext!!, productList,catId)
                 view.list_view.adapter = productAdapter
             },
             Response.ErrorListener {

@@ -1,29 +1,40 @@
 package com.example.practice12.Activities
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.practice12.MainActivity
+import com.example.practice12.Models.EndPoints
 import com.example.practice12.R
+import com.example.practice12.SessionManager
 import kotlinx.android.synthetic.main.activity_add_address.*
 import kotlinx.android.synthetic.main.activity_address.*
 import kotlinx.android.synthetic.main.activity_address.AddressActivity_add_address
+import kotlinx.android.synthetic.main.app_bar.*
 import org.json.JSONObject
 
 class AddAddressActivity : AppCompatActivity() {
+    lateinit var sessionManager: SessionManager
 
     var type = "Office"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_address)
+        setupToolbar()
 
         AddAddressActivity_add_address.setOnClickListener {
             var streatName = AddAddressActivity_streat_name.text.toString()
@@ -32,50 +43,22 @@ class AddAddressActivity : AppCompatActivity() {
             var city = AddAddressActivity_city.text.toString()
 
 
-//            var sharedPreferances = getSharedPreferences("my_pref2", Context.MODE_PRIVATE)
-//            var editor = sharedPreferances.edit()
-//            editor.putString("STREAT_NAME",streatName)
-//            editor.putString("HOUSE_NUM",houseNum)
-//
-//            editor.putString("TYPE",type)
-//
-//            editor.putString("CITY",city)
-//            editor.commit()
-
-
-
-
-//            {
-//                "error": false,
-//                "message": "address added successfully",
-//                "data": {
-//                "_id": "608715c2420cc20017dbf01d",
-//                "pincode": 3,
-//                "city": "c",
-//                "houseNo": "c",
-//                "streetName": "c",
-//                "type": "c",
-//                "userId": "603c691772642f00171f30c2",
-//                "__v": 0
-//            }
-//            }
-
             var jsonObject = JSONObject()
             jsonObject.put("houseNo",houseNum)
             jsonObject.put("streetName",streatName)
             jsonObject.put("city",city)
 
             jsonObject.put("type",type)
-            jsonObject.put("userId","603c691772642f00171f30c2")
+            jsonObject.put("userId",EndPoints.getUserID())
             jsonObject.put("pincode",65445)
 
 
-            var theURLPostAddress = "http://grocery-second-app.herokuapp.com/api/address"
+            //var theURLPostAddress = "http://grocery-second-app.herokuapp.com/api/address"
 
             var requestQueue = Volley.newRequestQueue(this)
             var jsonRequest = JsonObjectRequest(
                 Request.Method.POST,
-                theURLPostAddress,
+                EndPoints.getOnlyAddress(),
                 jsonObject,
                 Response.Listener {
                     Log.d("abc", it.toString())
@@ -88,19 +71,8 @@ class AddAddressActivity : AppCompatActivity() {
             )
             requestQueue.add(jsonRequest)
 
-
-
-
-
-
-
-
-
-
         }
 
-        // Enables Always-on
-        //setAmbientEnabled()
     }
 
 
@@ -128,4 +100,84 @@ class AddAddressActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        return true;
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_cart ->{
+
+
+                intent = Intent(this, ProductCartListActivity::class.java)
+                startActivity(intent)
+
+            }
+            R.id.menu_logout ->{
+                logoutDialoge()
+
+
+
+            }
+            R.id.menu_home ->{
+                intent = Intent(this, EnterActivity2::class.java)
+                startActivity(intent)
+            }
+
+            R.id.menu_back ->{
+                super.onBackPressed()
+
+            }
+
+        }
+        return true
+    }
+
+    private fun setupToolbar(){
+        var toolbar = toolbar
+        toolbar.title = "Addresses"
+        setSupportActionBar(toolbar)
+    }
+    private fun logoutDialoge() {
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure you wan to logout")
+        builder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                Toast.makeText(applicationContext, "Logging out...", Toast.LENGTH_SHORT).show()
+
+
+                sessionManager = SessionManager(applicationContext)
+                sessionManager.setLogin(false)
+                sessionManager.logout()
+
+                intent = Intent(applicationContext, MainActivity::class.java)
+
+                startActivity(intent)
+                Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
+
+
+
+            }
+        })
+        builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog?.dismiss()
+            }
+
+        })
+        var alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+
 }

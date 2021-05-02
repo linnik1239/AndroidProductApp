@@ -1,34 +1,55 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="#ccc"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#ccc"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/app_bar" />
+
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "Add new address"
+        android:text = "Add a new address"
         android:id = "@+id/AddressActivity_add_address"
         />
 
-
-
-
+    <TextView
+        android:id="@+id/text_view_empty_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="0dp"
+        android:text = ""/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/AddressActivity_add_address" />
+        android:layout_height="400dp"
+         />
 
+
+
+</LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text = "Final pay"
+        android:text = "Continue"
         android:id = "@+id/AddressActivity_get_info"
+        android:background="#9999"
+        android:backgroundTint="@color/black"
+        android:textStyle="bold"
         />
 
 </RelativeLayout>

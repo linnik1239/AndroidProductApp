@@ -16,6 +16,7 @@ import com.example.practice12.Activities.AddressActivity
 import com.example.practice12.Activities.EditAddressActivity
 import com.example.practice12.Activities.SuccessPayActivity
 import com.example.practice12.Models.Address
+import com.example.practice12.Models.EndPoints
 import com.example.practice12.R
 import kotlinx.android.synthetic.main.raw_address_adapter.view.*
 import org.json.JSONObject
@@ -74,7 +75,7 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
 
 
             itemView.AddressesAdaptertext_view_delete_address.setOnClickListener {
-                var theNewURLPostAddress =  "http://grocery-second-app.herokuapp.com/api/address/"+address._id
+               // var theNewURLPostAddress =  "http://grocery-second-app.herokuapp.com/api/address/"+address._id
 
                 var requestQueue2 = Volley.newRequestQueue(mContext)
                 var jsonObject2 = JSONObject()
@@ -82,7 +83,7 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
 
                 var jsonRequest2 = JsonObjectRequest(
                         Request.Method.DELETE,
-                        theNewURLPostAddress,
+                        EndPoints.getAddressAddId(address._id),
                         jsonObject2,
                         Response.Listener {
                             Log.d("abc", it.toString())
@@ -109,18 +110,6 @@ class AddressesAdapter(var mContext: Context):RecyclerView.Adapter<AddressesAdap
                 mContext.startActivity(intent)
 
             }
-
-          //  itemView.setOnClickListener {
-               // mContext.startActivity(Intent(mContext, SuccessPayActivity::class.java))
-            //}
-
-//            radioButton.setOnClickListener View.OnClickListener {
-//                val copyOfLastCheckedPosition: Int = lastCheckedPosition
-//                lastCheckedPosition = adapterPosition
-//                notifyItemChanged(copyOfLastCheckedPosition)
-//                notifyItemChanged(lastCheckedPosition)
-//            }
-//
 
 
             mRadio = itemView.Radio          //findViewById(R.id.radio)

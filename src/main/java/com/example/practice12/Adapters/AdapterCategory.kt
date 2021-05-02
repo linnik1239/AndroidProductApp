@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.practice12.Activities.SubCategoryActivity
 
 import com.example.practice12.Models.Category
+import com.example.practice12.Models.EndPoints
 import com.example.practice12.R
 import com.squareup.picasso.Picasso
 
@@ -46,7 +47,7 @@ class AdapterCategory(var mContext: Context) :
             itemView.text_view_category_name.text = category.catName
             Picasso
                 .get()
-                .load("http://rjtmobile.com/grocery/images/${category.catImage}")
+                .load(EndPoints.getImageURL()+"${category.catImage}")
                 .into(itemView.image_view_category)
 
             itemView.setOnClickListener {

@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@drawable/register_image2">
+    android:background="@drawable/register_bg">
 
 
     <EditText
@@ -11,7 +11,7 @@
         android:textColor="#000"
         android:layout_width="200dp"
         android:layout_margin="10dp"
-
+        android:textSize="25dp"
         android:layout_height="wrap_content"
         android:background="#999"
 
@@ -21,6 +21,7 @@
 
 
     <EditText
+        android:textSize="25dp"
 
         android:id="@+id/edit_text_email_R"
         android:hint="Email"
@@ -37,6 +38,8 @@
 
 
     <EditText
+        android:textSize="25dp"
+
         android:id="@+id/edit_text_password_R"
         android:inputType="textPassword"
         android:hint="Password"
@@ -52,6 +55,8 @@
 
 
     <EditText
+        android:textSize="25dp"
+
         android:layout_margin="10dp"
         android:id="@+id/edit_text_phone_R"
         android:hint="Phone"
@@ -69,7 +74,12 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text = "Register"
+        android:background="#9999"
+        android:backgroundTint="@color/black"
+        android:textStyle="bold"
         />
+
+
 
 
 </RelativeLayout>
